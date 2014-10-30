@@ -1,6 +1,6 @@
 <?php
 
-namespace Spolischook;
+namespace Spolischook\Model;
 
 class Article
 {
