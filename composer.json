@@ -4,6 +4,6 @@
         "phroute/phroute": "1.*"
     },
     "autoload": {
-        "psr-4": {"Spolischook": "src/"}
+        "psr-0": {"Spolischook": "src/"}
     }
 }
