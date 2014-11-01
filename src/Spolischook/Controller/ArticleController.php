@@ -6,6 +6,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ArticleController
 {
+    /** @var  \Twig_Environment */
+    protected $twig;
+
+    public function __construct(\Twig_Environment $twig)
+    {
+        $this->twig = $twig;
+    }
+
     /**
      * @return Response
      */
