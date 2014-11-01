@@ -28,7 +28,7 @@ class ArticleController
      */
     public function getArticleAction($id)
     {
-        return new Response(sprintf('Get Article with "%s" id action', $id));
+        return new Response($this->twig->render('article.html.twig', ['method' => 'Get', 'articleId' => $id]));
     }
 
     /**
@@ -37,7 +37,7 @@ class ArticleController
      */
     public function putArticleAction($id)
     {
-        return new Response(sprintf('Put Article with "%s" id  action', $id));
+        return new Response($this->twig->render('article.html.twig', ['method' => 'Put', 'articleId' => $id]));
     }
 
     /**
@@ -46,7 +46,7 @@ class ArticleController
      */
     public function postArticleAction($id)
     {
-        return new Response(sprintf('Post Article with "%s" id  action', $id));
+        return new Response($this->twig->render('article.html.twig', ['method' => 'Post', 'articleId' => $id]));
     }
 
     /**
@@ -55,6 +55,6 @@ class ArticleController
      */
     public function deleteArticleAction($id)
     {
-        return new Response(sprintf('Delete Article with "%s" id  action', $id));
+        return new Response($this->twig->render('article.html.twig', ['method' => 'Delete', 'articleId' => $id]));
     }
 }

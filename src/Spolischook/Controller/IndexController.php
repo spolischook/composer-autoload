@@ -19,6 +19,6 @@ class IndexController
      */
     public function indexAction()
     {
-        return new Response('Hello World!');
+        return new Response($this->twig->render('index.html.twig'));
     }
 }
