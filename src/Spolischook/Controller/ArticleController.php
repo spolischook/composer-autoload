@@ -2,24 +2,18 @@
 
 namespace Spolischook\Controller;
 
+use Spolischook\Model\Article;
 use Symfony\Component\HttpFoundation\Response;
 
-class ArticleController
+class ArticleController extends AbstractController
 {
-    /** @var  \Twig_Environment */
-    protected $twig;
-
-    public function __construct(\Twig_Environment $twig)
-    {
-        $this->twig = $twig;
-    }
-
     /**
      * @return Response
      */
     public function getArticlesAction()
     {
-        return new Response('So many articles here');
+        return new Response($this->twig->render('articles.html.twig', [
+            'articles' => iterator_to_array(Article::findAll())]));
     }
 
     /**
@@ -28,7 +22,7 @@ class ArticleController
      */
     public function getArticleAction($id)
     {
-        return new Response($this->twig->render('article.html.twig', ['method' => 'Get', 'articleId' => $id]));
+        return new Response($this->twig->render('article.html.twig', ['article' => Article::findOne($id)]));
     }
 
     /**
@@ -37,16 +31,20 @@ class ArticleController
      */
     public function putArticleAction($id)
     {
-        return new Response($this->twig->render('article.html.twig', ['method' => 'Put', 'articleId' => $id]));
+        return new Response();
     }
 
     /**
-     * @param string $id
      * @return Response
      */
-    public function postArticleAction($id)
+    public function postArticleAction()
     {
-        return new Response($this->twig->render('article.html.twig', ['method' => 'Post', 'articleId' => $id]));
+        $articleData = json_decode($this->request->getContent(), true);
+
+        $article = Article::getFromArray($articleData);
+        $article->save();
+
+        return new Response($this->twig->render('article.html.twig', ['method' => 'Post', 'articleId' => $article->getId()]), 201);
     }
 
     /**
@@ -55,6 +53,7 @@ class ArticleController
      */
     public function deleteArticleAction($id)
     {
-        return new Response($this->twig->render('article.html.twig', ['method' => 'Delete', 'articleId' => $id]));
+        Article::delete($id);
+        return new Response();
     }
 }
