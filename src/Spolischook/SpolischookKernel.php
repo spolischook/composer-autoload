@@ -15,6 +15,7 @@ class SpolischookKernel extends Kernel
             ['DELETE', '/articles/{id}', 'Spolischook\Controller\ArticleController:deleteArticleAction'],
 
             ['GET', '/articles', 'Spolischook\Controller\ArticleController:getArticlesAction'],
+            ['POST', '/articles', 'Spolischook\Controller\ArticleController:postArticleAction'],
         );
     }
 
