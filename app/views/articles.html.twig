@@ -1,0 +1,40 @@
+{% extends 'layout.html.twig' %}
+{% block body %}
+    <input class="title">
+    <button class="create">Create</button>
+    <ul>
+    {% for article in articles %}
+        <li>
+            {{ article.title }}
+            <a href="/articles/{{ article._id }}" data-delete-link="/articles/{{ article._id }}">view</a>
+            <a href="#" data-delete-link="/articles/{{ article._id }}" class="delete">delete</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".delete").click(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: $(this).data("delete-link"),
+                    type: 'DELETE'
+                }).done(function() {
+                    location.reload();
+                });
+            });
+            $(".create").click(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '/articles',
+                    type: 'POST',
+                    data: JSON.stringify({ title: $('.title').val() }),
+                    contentType: 'application/json'
+                }).done(function() {
+                    location.reload();
+                });
+            });
+        });
+    </script>
+{% endblock %}

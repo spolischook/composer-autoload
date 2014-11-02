@@ -2,7 +2,12 @@
 
 require_once 'vendor/autoload.php';
 
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Spolischook\SpolischookKernel;
 
-$response = new Response('Hello World!', 200, array('Content-Type' => 'text/plain'));
+$request = Request::createFromGlobals();
+
+$kernel = new SpolischookKernel();
+$response = $kernel->handle($request);
+
 $response->send();
