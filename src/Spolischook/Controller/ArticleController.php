@@ -4,16 +4,8 @@ namespace Spolischook\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 
-class ArticleController
+class ArticleController extends AbstractController
 {
-    /** @var  \Twig_Environment */
-    protected $twig;
-
-    public function __construct(\Twig_Environment $twig)
-    {
-        $this->twig = $twig;
-    }
-
     /**
      * @return Response
      */

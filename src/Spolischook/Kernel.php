@@ -8,8 +8,13 @@ use Symfony\Component\HttpFoundation\Request;
 
 abstract class Kernel implements KernelInterface
 {
+    /** @var  Request */
+    protected $request;
+
     public function handle(Request $request)
     {
+        $this->request = $request;
+
         $router = $this->handleRoutes($this->getRoutes());
         $dispatcher = new Dispatcher($router);
         $response = $dispatcher->dispatch($request->getMethod(), parse_url($request->getPathInfo(), PHP_URL_PATH));
@@ -38,7 +43,7 @@ abstract class Kernel implements KernelInterface
             $controllerMethod = array_pop($routeDefinition);
             list($controller, $method) = explode(':', $controllerMethod);
 
-            $controllers[$controller] = new $controller($this->getTemplateHandler());
+            $controllers[$controller] = new $controller($this->request, $this->getTemplateHandler());
         }
 
         return $controllers;
